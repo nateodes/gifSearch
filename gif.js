@@ -5,15 +5,46 @@
 
 var topics = ["baseball", "baskeball", "football", "hockey", "olympics", "golf", "curling"]
 
+$(".gifSearch").on("click", function(event) {
+        event.preventDefault();
+        // This line grabs the input from the textbox
+        var newTopic = $("#gifSearch").val();
+        // The movie from the textbox is then added to our array
+        topics.push(newTopic);
+        // Calling renderButtons which handles the processing of our movie array
+        renderButtons();
+      });
 
-
-for (var i = 0; i < topics.length; i++) {
-            var gifButton = $("<button>");
+function renderButtons() {
+        // Deleting the movie buttons prior to adding new movie buttons
+        // (this is necessary otherwise we will have repeat buttons)
+        $(".gifButtons").empty();
+        // Looping through the array of movies
+        for (var i = 0; i < topics.length; i++) {
+          var gifButton = $("<button>");
               gifButton.addClass("btn-sm");
               gifButton.attr({ "data-name": topics[i] });
               gifButton.html(topics[i]);
               $(".gifButtons").append(gifButton);
-          }
+        }
+      }
+
+renderButtons();
+
+
+
+
+
+
+
+
+// for (var i = 0; i < topics.length; i++) {
+//             var gifButton = $("<button>");
+//               gifButton.addClass("btn-sm");
+//               gifButton.attr({ "data-name": topics[i] });
+//               gifButton.html(topics[i]);
+//               $(".gifButtons").append(gifButton);
+//           }
 // Set Functions--------------------------------------------------
 
 $(document.body).on("click", ".btn-sm", function() {
@@ -32,11 +63,18 @@ $(document.body).on("click", ".btn-sm", function() {
             var gifDiv = $("<div class='item'>");
             var rating = results[i].rating;
             var p = $("<p>").text("Rating: " + rating);
-            var personImage = $("<img>");
-            personImage.attr("src", results[i].images.fixed_height.url);
+            var personImage = $("<img class='gif'>");
+            
+            personImage.attr("data-still", results[i].images.original_still.url);
             gifDiv.prepend(p);
             gifDiv.prepend(personImage);
             $("#gifBin").prepend(gifDiv);
+            // personImage.attr("data-state", "still");
+            // gifDiv.attr("data-state", "still");
+            personImage.attr("data-animate", results[i].images.original.url)
+          
+            personImage.attr("src", results[i].images.original_still.url);
+
           }
         
     });
@@ -45,6 +83,20 @@ $(document.body).on("click", ".btn-sm", function() {
 
 });
 
+$(document.body).on("click", ".gif", function() {
 
+	
+	var state = $(this).attr("data-state");
+
+            if (state === "still") {
+		        console.log("I've been clicked")
+		        $(this).attr("src", $(this).attr("data-animate"));
+
+		        $(this).attr("data-state", "animate");
+		      } else {
+		        $(this).attr("src", $(this).attr("data-still"));
+		        $(this).attr("data-state", "still");
+		      }
+          })
 
 //
