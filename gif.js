@@ -8,8 +8,11 @@ var topics = ["baseball", "baskeball", "football", "hockey", "olympics", "golf",
 $(".gifSearch").on("click", function(event) {
         event.preventDefault();
         // This line grabs the input from the textbox
-        var newTopic = $("#gifSearch").val();
-        // The movie from the textbox is then added to our array
+        var newTopic = $("#search").val().trim();
+        // var newButton = $("<button>");
+        // newButton.addClass("btn-sm");
+        // newButton.html(newTopic);
+        // newButton.attr({ "data-name": newTopic });
         topics.push(newTopic);
         // Calling renderButtons which handles the processing of our movie array
         renderButtons();
@@ -26,6 +29,7 @@ function renderButtons() {
               gifButton.attr({ "data-name": topics[i] });
               gifButton.html(topics[i]);
               $(".gifButtons").append(gifButton);
+
         }
       }
 
