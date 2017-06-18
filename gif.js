@@ -3,7 +3,7 @@
 // The public beta key is "dc6zaTOxFJmzC”
 
 
-var topics = ["Kenny Powers", "South Park", "baseball", "baskeball", "football", "hockey", "olympics", "golf", "curling"]
+var topics = ["Kenny Powers", "South Park", "The Office", "Friends", "puppies", "boss", "kittens", "golf", "whoops"]
 
 $(".gifSearch").on("click", function(event) {
         event.preventDefault();
@@ -19,7 +19,7 @@ function renderButtons() {
         $(".gifButtons").empty();
         for (var i = 0; i < topics.length; i++) {
           var gifButton = $("<button>");
-              gifButton.addClass("btn-sm btn-d btn-info");
+              gifButton.addClass("btn-sm btn-info");
               gifButton.attr({ "data-name": topics[i] });
               gifButton.html(topics[i]);
               $(".gifButtons").append(gifButton);
@@ -29,12 +29,9 @@ function renderButtons() {
 
 renderButtons();
 
-
-
-
-
-
-
+$(".clear").on("click", function (){
+	$("#gifBin").empty();
+})
 
 
 

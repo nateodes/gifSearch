@@ -1,3 +1,14 @@
+body {
+	background-image: url("images/background.JPG");
+	font-family: 'Roboto', sans-serif;
+	font-family: 'Fira Sans', sans-serif;
+}
+
+.btn-sm {
+	border-radius: 22px;
+	margin: 8px;
+}
+
 #gifBin {
 	width: 80%;
 	height: auto;
@@ -10,37 +21,37 @@
 	float: left;
 	margin: 5px;
 	position: relative;
+	background-color: white;
+	padding: 5px;
 }
 
-.rating {
-	
-	position: absolute;
-	z-index: 1;
-	
-	color: white;
-	
-	
-	
+.gifSearch {
+	margin-top: -10px;
+	margin-left: 10px;
 }
 
 .jumbotron {
 	background-color: black;
 	color: white;
+	font-style: italic;
+	letter-spacing: 2px;
 }
 
-body {
-	background-color: gold;
-}
+
 
 label {
-	font-size: 2.0rem;
+	font-size: 3.0rem;
 	color: white;
 	float: left;
 	margin-left: -35px;
+	margin-top: -10px;
 
 }
 
-button {
-	border-radius: 32px;
-	margin: 8px;
+
+
+.rating {
+	position: absolute;
+	z-index: 1;
+	color: white;
 }
