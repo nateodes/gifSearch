@@ -1,24 +1,28 @@
-// Set Globals  ---------------------------------------------------
+// Create Topics array
 
-// The public beta key is "dc6zaTOxFJmzC”
+const topics = ["Kenny Powers", "South Park", "The Office", "Friends", "puppies", "boss", "kittens", "golf", "whoops"]
 
-
-var topics = ["Kenny Powers", "South Park", "The Office", "Friends", "puppies", "boss", "kittens", "golf", "whoops"]
-
+//create on click function to handle event 
 $(".gifSearch").on("click", function(event) {
         event.preventDefault();
         
-        var newTopic = $("#search").val().trim();
+        //Add new topic to array
+        let newTopic = $("#search").val().trim();
         
+        if (newTopic === "") {
+          return
+        }
+
         topics.push(newTopic);
         renderButtons();
       });
 
+// Create function to show buttons on the page      
 function renderButtons() {
         
         $(".gifButtons").empty();
-        for (var i = 0; i < topics.length; i++) {
-          var gifButton = $("<button>");
+        for (let i = 0; i < topics.length; i++) {
+          let gifButton = $("<button>");
               gifButton.addClass("btn-sm btn-info");
               gifButton.attr({ "data-name": topics[i] });
               gifButton.html(topics[i]);
@@ -27,39 +31,39 @@ function renderButtons() {
         }
       }
 
-renderButtons();
+//When document loads show buttons       
+$(document).ready(renderButtons()) 
+	
 
-$(".clear").on("click", function (){
+
+//Clearing the div when user clicks clear
+$("#clear").on("click", function () {
 	$("#gifBin").empty();
 })
 
+//Using document.body lets any newly created search button handle the same as buttons rendered on load
 
-
-$(document.body).on("click", ".btn-sm", function() {
-		var searchGif = ($(this).attr("data-name"));
-		// var newGif = $("#email").val().trim();
-        // URL
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + searchGif + "&limit=10&rating=pg&rating=g&sort=recent&api_key=dc6zaTOxFJmzC";  
+$(document.body).on("click", ".btn-sm", function () {
+        
+        let searchGif = ($(this).attr("data-name"));
+        //Take searchGif variable and insert into url for ajax call 
+        let queryURL = "https://api.giphy.com/v1/gifs/search?q=" + searchGif + "&limit=10&rating=pg&rating=g&sort=recent&api_key=dc6zaTOxFJmzC";  
         
         $.ajax({
-      url: queryURL,
-      method: "GET"
-    }).done(function(response) {
-        console.log(response.data[0].embed_url);
-        var results = response.data;
-          for (var i = 0; i < results.length; i++) {
-            var gifDiv = $("<div class='item'><span class='rating'>");
-            var rating = results[i].rating;
-            // var p = $("<span class='rating'>").text("Rating: " + rating);
-            var personImage = $("<img class='gif'>");
+                url: queryURL,
+                method: "GET"
+                  }).done(function(response) {
+        let results = response.data;
+       //loop through results creating a div for each result
+        for (let i = 0; i < results.length; i++) {
+            
+            let gifDiv = $("<div class='item'><span class='rating'>");
+            let rating = results[i].rating;
+            let personImage = $("<img class='gif'>");
             
             personImage.attr("data-still", results[i].images.original_still.url);
-            // $(".rating").text(rating);
             gifDiv.prepend(personImage);
-            // $(".newDiv").append(p);
             $("#gifBin").prepend(gifDiv);
-            // personImage.attr("data-state", "still");
-            // gifDiv.attr("data-state", "still");
             personImage.attr("data-animate", results[i].images.original.url)
           
             personImage.attr("src", results[i].images.original_still.url);
@@ -72,10 +76,12 @@ $(document.body).on("click", ".btn-sm", function() {
 
 });
 
+
+//Function to change the state for each GIF from playing to paused and reverse
 $(document.body).on("click", ".gif", function() {
 
 	
-	var state = $(this).attr("data-state");
+	let state = $(this).attr("data-state");
 
             if (state === "still") {
 		        console.log("I've been clicked")
@@ -86,6 +92,4 @@ $(document.body).on("click", ".gif", function() {
 		        $(this).attr("src", $(this).attr("data-still"));
 		        $(this).attr("data-state", "still");
 		      }
-          })
-
-//
+          });
